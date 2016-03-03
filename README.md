@@ -48,22 +48,35 @@ Once you have dinghy up and running (no, really--be sure you've executed the ter
 
 ###### Step 1: Create your App
 
-For this example we'll use Ruby on Rails. No need for a database or testing.
+For this example we'll use Sinatra. No need for a database.
 
 ```sh 
-$ rails new hello-docker-world --skip-activerecord --skip-test-unit
+$ mkdir hello-docker-world
+$ cd hello-docker-world
+$ gem install sinatra --no-ri --no-rdoc
+$ touch myapp.rb
+$ open -e myapp.rb
 ```
 
-Follow Rails's instructions as outlined in its default welcome page to display "Hello Docker World!" when the app loads. 
+Now add this to the myapp.rb file:
+```
+require 'sinatra'
 
-Now for a sanity check:
+get '/' do
+  'Hello Docker World!'
+end
+```
+
+Save and close the file.
+
+Execute:
 ```sh 
-$ bundle install
-$ rails s
-$ open http://localhost:3000
+$ ruby myapp.rb
 ```
 
-You should see your "Hello Docker World!" page.
+Now open your browser and go to http://localhost:4567 . You should see your "Hello Docker World!" page.
+
+You have a running bare-bones Sinatra web app. Now let's dockerize it!
 
 ###### Step 2: Write your Dockerfile
 
@@ -80,7 +93,7 @@ $ open -e Dockerfile
 
 Now add the following text to your Dockerfile:
 ``` 
-FROM rails:onbuild
+FROM instructure/ruby-passenger:2.3
 
 USER root
 
@@ -88,19 +101,20 @@ ENV APP_HOME /usr/src/app
 RUN mkdir -p $APP_HOME
 WORKDIR $APP_HOME
 
+RUN gem install sinatra --no-ri --no-rdoc
+
 COPY . $APP_HOME
 
-ENV VIRTUAL_HOST=hello-docker-world.docker
+ENV RACK_ENV=production
 
-RUN groupadd -r docker && useradd -r -g docker docker
+EXPOSE 80
 
-RUN chown -R docker:docker $APP_HOME
-USER docker
+CMD ruby myapp.rb -p 80
 ```
 
 There we have our Docker recipe! Save and close the file.
 
-The content of this Dockerfile tells Docker we're going to base our app on the official Rails image. Then it creates the directory, `/usr/src/app`, where we'll store our app's code. Next, it sets the `VIRTUAL_HOST` environment variable (this lets dinghy know our app's URI). Finally, it creates a `docker` user and switches to that user for us.
+The content of this Dockerfile tells Docker we're going to base our app on a prebuilt Ruby v2.3 image hosted by Instructure. It then creates the directory, `/usr/src/app`, where we'll store our app's code. Then it installs the sinatra gem, sets the `RACK_ENV` environment variable, and exposes port 80 for us (so that we can access the web server from outside the docker container). Finally, it runs the BASH command, `ruby myapp.rb -p 80` (specifying the port).
 
 ###### Step 3: Build your Image
 
@@ -120,13 +134,12 @@ Cool!
 
 Now for the moment of truth...
 ```sh 
-$ docker run hello-docker-world
-$ open http://hello-docker-world.docker
+$ docker run -e VIRTUAL_HOST=myapp.docker hello-docker-world
 ```
 
-You should see "Hello Docker World".
+Go to http://myapp.docker in your browser. You should see "Hello Docker World!"
 
-Success! You've just built and ran your first dockerized app!  \o/
+Success! You just built and ran your first dockerized app!  \o/
 
 #### Bonus: Test your App in a dockerized Selenium Grid
 
