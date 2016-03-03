@@ -1,7 +1,7 @@
 # dockerize-dat-app
 A brief, hands-on, high-level introduction to Docker.
 
-This is *not* a substitute for Docker's [official tutorial](https://training.docker.com/self-paced-training). Rather, I'll attempt to briefly explain what Docker has to offer. Then we're going to dive right in to the command line and make some Docker magic. :magic:
+This is *not* a substitute for Docker's [official tutorial](https://training.docker.com/self-paced-training). Rather, I'll attempt to briefly explain what Docker has to offer. Then we're going to dive right in to the command line and make some Docker magic.
 
 ### Why use Docker?
 
@@ -40,9 +40,31 @@ At some point I highly recommend you work your way through Docker's extremely us
 
 ## Let's build something! (MacOSX)
 
-First, you need to install [dinghy](https://github.com/codekitchen/dinghy) and its dependencies. Read dinghy's documentation for a full explanation if you like. Just know it will make your Dockerized life much easier.
+#### Prerequisites
+1. Ruby v2.3
+2. [dinghy](https://github.com/codekitchen/dinghy) and its dependencies. Read dinghy's documentation for a full explanation if you like. Just know it will make your Dockerized life much easier.
 
-Once you have dinghy up and running (no, really--be sure you've executed the terminal command, `dinghy up`), you're ready to move forward.
+If you haven't already followed dinghy's advice by adding the specified environment variables to your `.bashrc` file or equivalent, you need to do that now. 
+
+You'll know everything is working when you execute these commands...
+```sh 
+$ dinghy up
+$ dinghy status
+```
+
+... and you see this:
+```sh
+$ dinghy status
+  VM: running
+ NFS: running
+FSEV: running
+ DNS: running
+HTTP: running
+
+Your environment variables are already set correctly.
+```
+
+Onward to the fun stuff!
 
 ### Hello Docker World
 
@@ -74,7 +96,7 @@ Execute:
 $ ruby myapp.rb
 ```
 
-Now open your browser and go to http://localhost:4567 . You should see your "Hello Docker World!" page.
+Now open your browser and go to [http://localhost:4567](http://localhost:4567). You should see your "Hello Docker World!" page.
 
 You have a running bare-bones Sinatra web app. Now let's dockerize it!
 
@@ -82,10 +104,10 @@ You have a running bare-bones Sinatra web app. Now let's dockerize it!
 
 Again, I shall shamelessly steal from Docker's [official intro](https://docs.docker.com/mac/step_four/).
 ```
-"A Dockerfile describes the software that is 'baked' into an image. It isn’t just ingredients tho, it can tell the software what environment to use or what commands to run. Your recipe is going to be very short."
+"A Dockerfile describes the software that is 'baked' into an image. It isn’t just ingredients tho, it can tell the software what environment to use or what commands to run."
 ```
 
-Now do this:
+You'll want to do the following inside your `hello-docker-world` directory:
 ```sh
 $ touch Dockerfile
 $ open -e Dockerfile
@@ -118,7 +140,7 @@ The content of this Dockerfile tells Docker we're going to base our app on a pre
 
 ###### Step 3: Build your Image
 
-Execute the following in your command line:
+Execute the following in your command line (don't forget the period . ):
 ```sh
 $  docker build -t hello-docker-world .
 ```
@@ -143,5 +165,5 @@ Success! You just built and ran your first dockerized app!  \o/
 
 #### Bonus: Test your App in a dockerized Selenium Grid
 
-Checkout my project, [docker-grid-nightwatch](https://github.com/mycargus/docker-grid-nightwatch) for more info.
+Take a look at [docker-grid-nightwatch](https://github.com/mycargus/docker-grid-nightwatch) for more info.
 
