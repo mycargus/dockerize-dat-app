@@ -3,6 +3,8 @@ A brief, hands-on, high-level introduction to Docker.
 
 This is *not* a substitute for Docker's [official tutorial](https://training.docker.com/self-paced-training). Rather, I'll attempt to briefly explain what Docker has to offer. Then we're going to dive right in to the command line and make some Docker magic.
 
+If you'd rather skip the intro and go right to building a Docker image, scroll down to the section titled, "Let's build something!"
+
 ### Why use Docker?
 
 Have you ever run into unexpected errors while developing on your local machine? Problems like outdated dependencies, ruby library version confusion, or flat out jacked up stuff that leads to hours of scouring Stack Overflow and really weird looking old-school discussion threads in which the most valuable contributor is a self-proclaimed hacker with the alias "T0xic Vap0r"?
@@ -17,9 +19,9 @@ Docker aims to solve these problems, among others.
 
 Docker gives you the ability to replicate the exact same environment across all major operating systems (Windows, Mac, Linux). No more dependency nightmares or "It worked on my machine!" 
 
-Now imagine you're a brand new QA Engineer at Google (or Instructure?). Your job is to QA _*everything*_. Imagine how long the technical onboarding would take!
+Now imagine you're a brand new QA Engineer at Google. Your job is to QA _*everything*_. Imagine how long the technical onboarding would take!
 
-What if you could do that in less than an hour? What if you could do it while getting lunch with your new team?
+What if you could do that technical onboarding in less than an hour? What if you could do it while getting lunch with your new team?
 
 Docker makes this dream a reality!
 
@@ -154,7 +156,7 @@ $ docker images
 
 Cool!
 
-Now for the moment of truth...
+###### Step 4: The moment of truth...
 ```sh 
 $ docker run -e VIRTUAL_HOST=myapp.docker hello-docker-world
 ```
@@ -165,5 +167,7 @@ Success! You just built and ran your first dockerized app!  \o/
 
 #### Bonus: Test your App in a dockerized Selenium Grid
 
-Take a look at [docker-grid-nightwatch](https://github.com/mycargus/docker-grid-nightwatch) for more info.
+For you Rubyists out there, take a look at [docker-grid-rspec-capybara](https://github.com/mycargus/docker-grid-rspec-capybara) for more info.
+
+Or, if you prefer to write your tests in Javascript, checkout the [Nightwatch version](https://github.com/mycargus/docker-grid-nightwatch).
 
