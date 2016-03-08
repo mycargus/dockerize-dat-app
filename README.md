@@ -167,7 +167,10 @@ Success! You just built and ran your first dockerized app!  \o/
 
 #### Bonus: Test your App in a dockerized Selenium Grid
 
-For you Rubyists out there, take a look at [docker-grid-rspec-capybara](https://github.com/mycargus/docker-grid-rspec-capybara) for more info.
+For you Rubyists out there, take a look at [docker-grid-rspec-capybara](https://github.com/mycargus/docker-grid-rspec-capybara).
 
 Or, if you prefer to write your tests in Javascript, checkout the [Nightwatch version](https://github.com/mycargus/docker-grid-nightwatch).
 
+#### Double Bonus: Push your dockerized App to Docker Hub!
+
+If I can do it (and [I did](https://hub.docker.com/r/mycargus/hello-docker-world/)), you can do it. Happy Googling! :wink:
