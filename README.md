@@ -3,7 +3,7 @@ A brief, hands-on, high-level introduction to Docker.
 
 This is *not* a substitute for Docker's [official tutorial](https://training.docker.com/self-paced-training). Rather, I'll attempt to briefly explain what Docker has to offer. Then we're going to dive right in to the command line and make some Docker magic.
 
-If you'd rather skip the intro and go right to building a Docker image, scroll down to the section titled, "Let's build something!"
+If you'd rather skip the intro and go right to building a Docker image, go to the [Let's build something!](https://github.com/mycargus/dockerize-dat-app#lets-build-something-macosx) section.
 
 ### Why use Docker?
 
